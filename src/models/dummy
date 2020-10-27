@@ -1,0 +1,104 @@
+
+    /* SCHEMA 
+
+	const schema = new mongoose.Schema({
+		a : { type: String, required : true, minlength: , }, 
+		b : [String],
+		c : { type : Date, default : date.now },
+		d : Boolean,
+		e : {
+			type : Date,
+			required : function () {  // It doesn't work with arrow fn.
+						return this.d;  // Only show if d =true.
+				}
+			}
+		f : {
+			type : Array,
+			validate: function(v) {
+				if(v && v.length > 1); // Not empty array
+			},
+			message: "Array should have at least one element"
+		}
+	}) */
+
+	/* MODEL from SCHEMA -> Create an object of class Model
+
+	const Model = new mongoose.model('NewMod', schema);
+
+	// Create object according to a Model 
+	const createObject = async () => {
+		const object = new Model({
+			author : 'John',
+			institution : 'BSC',
+			comments : ['Hey', 'There'],
+			isPublished : true,
+			date : '10/10/2020'
+		})
+		// Store into MongoDB:Async fn
+
+		try {
+			const result = await object.save();
+			console.log(result);
+		}
+		catch (err) {
+			console.log(err.message);
+
+			// OR VALIDATION ERROR
+
+			for (field in err.errors)
+				console.log(err.errors[field].message)
+		}
+
+	}
+
+	createObject();
+
+	*/
+	/*
+
+	// Get Object from MongoDB (find, limit, sort, select (projection))
+
+	const getObjects = async () => {
+		const result = await Model
+			.find({ author : '1234', isPublished : true })
+			.limit(10)
+			.sort({ institution : 1 })
+			.select( author: 1, comments: 1);
+		return result;
+	}
+
+	const getObjectsAlt = async () => {
+		const result = await Model
+			.find()
+			.or([{ author : '1234' }, { isPublished : true }])
+			//.and([{ author : '1234' }, { isPublished : true }])
+			.limit(10)
+			.sort({ institution : 1 })
+			//.select( author: 1, comments: 1)
+			.count();
+		return result;
+	}
+
+	const run = async () => {
+		const objects = await getObjects();
+		console.log(objects);
+	}
+
+	run();
+	
+	// gt, eq, ne, gte, lt, lte, nin (not in)
+
+	const getObjects = async () => {
+		const result = await Model
+			.find({ author : { $eq '1234' } })
+			//.find({ price : { $gt : 10, $lt : 20 }})
+			//.find({ price : { $in : [ 1, 10, 20 ] } })
+			.limit(10)
+			.sort({ institution : 1 })
+			.select( author: 1, comments: 1);
+		console.log(result);
+	}
+	getObjects();
+	*/
+
+	/* Express: Update methods here */

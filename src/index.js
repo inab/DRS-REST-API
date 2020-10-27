@@ -33,7 +33,7 @@ initDb( db => {
 
 	app.use(middleware({ config, db }));
 
-	app.use('/v1', routes({ config, db, keycloak }));
+	app.use('/ga4gh/drs/v1', routes({ config, db, keycloak }));
 
 	app.server.listen(process.env.PORT || config.port, () => {
 		console.log(`Started on port ${app.server.address().port}`);
