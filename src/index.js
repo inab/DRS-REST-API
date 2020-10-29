@@ -7,7 +7,8 @@ import initDb from './db';
 import routes from './routes';
 import config from './configHttp';
 import middleware from './middleware';
-import { keycloak, sessionData } from './config';
+import passport from 'passport';
+import passportData from './config';
 
 let app = express();
 
@@ -23,17 +24,15 @@ app.use(bodyParser.json({
 	limit : config.bodyLimit
 }));
 
-app.use(sessionData);
-
-app.use(keycloak.middleware());
-
 app.set('trust proxy', true);
+
+passport.use(passportData);
 
 initDb( db => {
 
-	app.use(middleware({ config, db }));
+  app.use(middleware({ config, db }));
 
-	app.use('/ga4gh/drs/v1', routes({ config, db, keycloak }));
+	app.use('/ga4gh/drs/v1/', routes({ config, db, passport }));
 
 	app.server.listen(process.env.PORT || config.port, () => {
 		console.log(`Started on port ${app.server.address().port}`);

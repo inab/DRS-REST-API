@@ -1,26 +1,14 @@
-var session = require('express-session');
-var Keycloak = require('keycloak-connect');
+import KeycloakBearerStrategy from 'passport-keycloak-bearer';
 
-var keycloakConfig = {
-	"realm": "IPC",
-	"auth-server-url": "****",
-	"ssl-required": "external",
-	"resource": "****",
-	"public-client": true,
-	"confidential-port": 0
+let options = {
+  "realm" : "*",
+  "url" : "*"
 }
-
-var memoryStore = new session.MemoryStore();
-var keycloak = new Keycloak({ store: memoryStore }, keycloakConfig);
-
-var sessionData = session({
-    secret:'3378y83e',
-    resave: false,
-    saveUninitialized: true,
-    store: memoryStore
+let passportData = new KeycloakBearerStrategy(options,  (jwtPayload, done) => {
+  const user = jwtPayload;
+  return done(null, user);
 });
 
-module.exports = {
-    keycloak,
-    sessionData
-};
+module.exports = passportData;
+
+

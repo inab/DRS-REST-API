@@ -44,6 +44,8 @@
     "mongodb": "^3.6.2",
     "mongoose": "^5.10.10",
     "morgan": "^1.8.0",
+    "passport": "^0.4.1",
+    "passport-keycloak-bearer": "^2.0.5",
     "resource-router-middleware": "^0.6.0"
   },
   "devDependencies": {
