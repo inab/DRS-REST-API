@@ -1,12 +1,18 @@
 import request from 'request';
+import jwt_decode from "jwt-decode";
 
 // Check access token passed as an auth header.
 export default (req, res, next) => {
 	if (req.headers.authorization) {
-	  // KC config: Single realm.
+
+	  // KC config: Extract the realm from token.
+
+	  let decodedToken = jwt_decode(req.headers.authorization.split('Bearer ')[1])
+	  let realmName = decodedToken.iss.split("/").pop();
+
 	  const options = {
 		method: 'GET',
-		url: `https://{KC_DOMAIN}/auth/realms/{REALMNAME}/protocol/openid-connect/userinfo`,
+		url: `https://{KC_DOMAIN}/auth/realms/${realmName}/protocol/openid-connect/userinfo`,
 		headers: {
 		  Authorization: req.headers.authorization,
 		},

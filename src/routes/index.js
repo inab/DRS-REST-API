@@ -28,8 +28,10 @@ export default ({ config, db }) => {
 				});*/
 			
 				//res.json({ object_id :  `${data}` });
+
 				const data = "URL: " + baseUrl + '/objects/' + `${object_id}`;
-				console.log("URL: " + baseUrl + '/objects/' + `${object_id}`);
+				console.log("URL: " + baseUrl + '/objects/' + `${object_id}`); 
+
 				res.json(data)
 				
 			} catch(error) {

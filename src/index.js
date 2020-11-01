@@ -9,12 +9,12 @@ import config from './configHttp';
 import authMW from './middleware';
 //import passport from 'passport';
 //import passportData from './config';
-import tokenRequester from 'keycloak-request-token';
-import settings from './getTokens';
+//import tokenRequester from 'keycloak-request-token';
+//import settings from './getTokens';
 
 // 0) GET ACCESS TOKEN FOR TESTING:
-
-const baseUrl = 'https://{REALM_DOMAIN}/auth';
+/*
+const baseUrl = 'https://{KC_DOMAIN}/auth';
 
 tokenRequester(baseUrl, settings)
   .then((token) => {
@@ -22,7 +22,7 @@ tokenRequester(baseUrl, settings)
   }).catch((err) => {
     console.log('err', err);
   });
-
+*/
 
 // 1) INITIALIZE EXPRESS APP.
 
