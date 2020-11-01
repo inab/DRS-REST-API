@@ -1,22 +1,52 @@
 import { version } from '../../package.json';
 import { Router } from 'express';
-import { ObjectId, validateObjectId } from '../models/getObject';
-import { ObjectByAccessId, validateObjectByAccessId } from '../models/getObjectByAccessId';
+import { validateObjectId } from '../models/getObject';
+import { validateObjectByAccessId } from '../models/getObjectByAccessId';
+import axios from 'axios';
 
-export default ({ config, db, passport }) => {
+export default ({ config, db }) => {
 	let api = Router();
 
-	// Remember to put async (req, res) if we are going to use some async operations (MongoDB).
-	api.get('/objects/:object_id', passport.authenticate('keycloak', { session: false }),
-	(req, res) => {
-		res.json({ object_id :  `${req.params.object_id}` });
+	// PASSPORTS EXAMPLE
+	//api.get('/objects/:object_id', passport.authenticate('keycloak', { session: false }), (req, res) => 
+	
+	api.get('/objects/:object_id', (req, res) => 
+	{
+		let header = req.headers.authorization.split('Bearer ')[1];
+		let object_id = req.params.object_id;
+		let baseUrl = "https://***/api/v1";
+
+		async function axiosGet() {
+			try {
+				/*
+				const data = await axios({  
+					method: 'get',
+					url: baseUrl + '/objects/' + `${object_id}`,
+					headers: {
+						Authorization: header
+					}
+				});*/
+			
+				//res.json({ object_id :  `${data}` });
+				const data = "URL: " + baseUrl + '/objects/' + `${object_id}`;
+				console.log("URL: " + baseUrl + '/objects/' + `${object_id}`);
+				res.json(data)
+				
+			} catch(error) {
+				console.error(error);
+				res.json({ error : "error" });
+			}
+		}
+
+		axiosGet();
+
 	});
 
-	api.get('/objects/:object_id/access/:access_id', passport.authenticate('keycloak', { session: false }), 
-	(req, res) => {
+	/*api.get('/objects/:object_id/access/:access_id', passport.authenticate('keycloak', { session: false }), (req, res) => 
+	{
 		res.json({ object_id : `${req.params.object_id}`, 
-				  access_id :  `${req.params.access_id}` });
-	});
+				   access_id :  `${req.params.access_id}` });
+	});*/
 	
 	return api;
 }
