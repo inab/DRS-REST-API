@@ -2,20 +2,19 @@
 
 // GET TOKENS FOR TESTING -> CONFIG:
 
+/*const settings = {
+    username: '',
+    password: '',
+    client_id: '',
+    grant_type: 'password',
+    realmName: ''
+};*/
 /*
 const settings = {
-    username: 'user',
-    password: 'my-pwd',
-    client_id: 'my-client',
-    grant_type: 'password',
-    realmName: 'my-realm'
-};*/
-
-/*const settings = {
-  client_id : 'my-client',
-  client_secret : 'client-secret',
+  client_id : '',
+  client_secret : '',
   grant_type : 'client_credentials',
-  realmName : 'client-realm'
+  realmName : ''
 }*/
 
 //module.exports = settings;

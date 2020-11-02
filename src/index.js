@@ -13,9 +13,9 @@ import authMW from './middleware';
 //import settings from './getTokens';
 
 // 0) GET ACCESS TOKEN FOR TESTING:
-/*
-const baseUrl = 'https://{KC_DOMAIN}/auth';
 
+//const baseUrl = 'https://inb.bsc.es/auth';
+/*
 tokenRequester(baseUrl, settings)
   .then((token) => {
     console.log(token);
@@ -42,7 +42,7 @@ app.use(bodyParser.json({
 
 app.set('trust proxy', true);
 
-// 2) APPLY CUSTOM AUTH MIDDLEWARE: SINGLE REALM.
+// 2) APPLY CUSTOM AUTH MIDDLEWARE.
 
 app.use(authMW);
 

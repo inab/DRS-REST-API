@@ -12,7 +12,7 @@ export default (req, res, next) => {
 
 	  const options = {
 		method: 'GET',
-		url: `https://{KC_DOMAIN}/auth/realms/${realmName}/protocol/openid-connect/userinfo`,
+		url: `https://{KC_domain}/auth/realms/${realmName}/protocol/openid-connect/userinfo`,
 		headers: {
 		  Authorization: req.headers.authorization,
 		},

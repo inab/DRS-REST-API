@@ -2,53 +2,36 @@ import { version } from '../../package.json';
 import { Router } from 'express';
 import { validateObjectId } from '../models/getObject';
 import { validateObjectByAccessId } from '../models/getObjectByAccessId';
-import axios from 'axios';
+import fetchURL from '../utils/axiosGet';
 
 export default ({ config, db }) => {
 	let api = Router();
 
-	// PASSPORTS EXAMPLE
-	//api.get('/objects/:object_id', passport.authenticate('keycloak', { session: false }), (req, res) => 
-	
-	api.get('/objects/:object_id', (req, res) => 
+	api.get('/objects/:object_id', async (req, res) => 
 	{
 		let header = req.headers.authorization.split('Bearer ')[1];
 		let object_id = req.params.object_id;
-		let baseUrl = "https://***/api/v1";
+		let baseUrl = "https://{domain}/api/v1/objects/";
 
-		async function axiosGet() {
-			try {
-				/*
-				const data = await axios({  
-					method: 'get',
-					url: baseUrl + '/objects/' + `${object_id}`,
-					headers: {
-						Authorization: header
-					}
-				});*/
-			
-				//res.json({ object_id :  `${data}` });
+		let url = baseUrl + object_id;
 
-				const data = "URL: " + baseUrl + '/objects/' + `${object_id}`;
-				console.log("URL: " + baseUrl + '/objects/' + `${object_id}`); 
-
-				res.json(data)
-				
-			} catch(error) {
-				console.error(error);
-				res.json({ error : "error" });
-			}
-		}
-
-		axiosGet();
-
+		const response = await fetchURL(url, header);
+		res.send(response);
 	});
 
-	/*api.get('/objects/:object_id/access/:access_id', passport.authenticate('keycloak', { session: false }), (req, res) => 
+	api.get('/objects/:object_id/access/:access_id', async (req, res) => 
 	{
-		res.json({ object_id : `${req.params.object_id}`, 
-				   access_id :  `${req.params.access_id}` });
-	});*/
+		let header = req.headers.authorization.split('Bearer ')[1];
+		let object_id = req.params.object_id;
+		let access_id = req.params.access_id;
+		let baseUrl = "https://{domain}/api/v1/objects/";
+
+		let url = baseUrl + object_id + '/access/' + access_id;
+
+		const response = await fetchURL(url, header);
+		res.send(response);
+
+	});
 	
 	return api;
 }
